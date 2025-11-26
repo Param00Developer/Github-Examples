@@ -6,5 +6,5 @@ jobs:
   schedule_action:
     runs-on: ubuntu-latest
     steps:
-      name: Echo current time
-      run: echo "The current run time is ${date}
+      -name: Echo current time
+        run: echo "The current run time is ${date}
