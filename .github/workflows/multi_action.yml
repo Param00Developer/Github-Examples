@@ -1,0 +1,17 @@
+name: MultiEvent Changes
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+jobs:
+  hello_world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Echo hello world...."
+        run:
+          echo "Hello to multi trigger events"
