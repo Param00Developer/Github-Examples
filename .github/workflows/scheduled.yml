@@ -7,5 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo current time
-        run: echo "The current run time is ${date}"
+        run: echo "The current run time is ${date}..."
       
