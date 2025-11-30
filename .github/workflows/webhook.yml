@@ -1,0 +1,14 @@
+name: External Webhook Event
+
+on:
+  repository_dispatch:
+    types: [deploy-event]
+
+jobs:
+  handle-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log Webhook Event
+        run: |
+          echo "Received trigger from: ${{ github.event.client_payload.source }}"
+          echo "Deploying version: ${{ github.event.client_payload.version }}"
