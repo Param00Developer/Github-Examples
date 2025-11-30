@@ -2,7 +2,7 @@ name: Manual Workflow with Parameters
 
 on:
   workflow_dispatch:
-    imputs:
+    inputs:
       name:
         description: 'Name of person to greet'
         required: true
