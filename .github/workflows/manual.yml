@@ -25,13 +25,18 @@ jobs:
     steps:
       - name: Format Name
         id: format_name
+        # We replace ::set-output with redirection to $GITHUB_OUTPUT
         run: |
           if [ "${{ inputs.respect_casing }}" = "true" ]; then
-            echo "::set-output name=formatted_name::${{ inputs.name }}"
+            echo "formatted_name=${{ inputs.name }}" >> $GITHUB_OUTPUT
           else
-            formatted_name="$(echo "${{ inputs.name }}" | tr '[:upper:]' '[:lower:]')"
-            echo "::set-output name=formatted_name::${formatted_name^}"
+            # Convert to lower, then capitalize first letter (Bash syntax)
+            val=$(echo "${{ inputs.name }}" | tr '[:upper:]' '[:lower:]')
+            val="${val^}" 
+            echo "formatted_name=$val" >> $GITHUB_OUTPUT
           fi
+
       - name: Display Greeting
+        # The way we consume the output remains exactly the same
         run: |
           echo "${{ inputs.type }}, ${{ steps.format_name.outputs.formatted_name }}!"
