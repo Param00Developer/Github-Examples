@@ -1,0 +1,37 @@
+name: Manual Workflow with Parameters
+
+on:
+  workflow_dispatch:
+    imputs:
+      name:
+        description: 'Name of person to greet'
+        required: true
+        type: string
+      type:
+        description: 'Type of greeting'
+        required: true
+        type: choice
+        options:
+          - Evening
+          - Morning
+          - Afternoon
+      respect_casing:
+        description: 'Whether to respect casing in the name'
+        required: false
+        type: boolean
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Format Name
+        id: format_name
+        run: |
+          if [ "${{ inputs.respect_casing }}" = "true" ]; then
+            echo "::set-output name=formatted_name::${{ inputs.name }}"
+          else
+            formatted_name="$(echo "${{ inputs.name }}" | tr '[:upper:]' '[:lower:]')"
+            echo "::set-output name=formatted_name::${formatted_name^}"
+          fi
+      - name: Display Greeting
+        run: |
+          echo "${{ inputs.type }}, ${{ steps.format_name.outputs.formatted_name }}!"
