@@ -1,16 +1,14 @@
 name: Conditional Action Workflow
-
-on:
-  [push, pull_request]
-
+'on':
+  - push
+  - pull_request
 jobs:
   conditional-job:
     runs-on: ubuntu-latest
     steps:
       - name: Check for specific request and corresponding action
-         if: github.event_name == 'push':
-            run: echo "This job runs only on push events."
+        if: github.event_name == 'push'
+        run: echo "This job runs only on push events."
       - name: Check for pull request event
-        if: github.event_name == 'pull_request':
-          run: echo "This job runs only on pull request events."
-          
+        if: github.event_name == 'pull_request'
+        run: echo "This job runs only on pull request events."
